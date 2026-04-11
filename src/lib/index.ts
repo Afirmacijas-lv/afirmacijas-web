@@ -1,1 +1,2 @@
-export { default as AfirmacijasCanvas } from '$lib/components/AfirmacijasCanvas.svelte';
+import AfirmacijasCanvas from '$lib/components/AfirmacijasCanvas.svelte';
+export { AfirmacijasCanvas };
