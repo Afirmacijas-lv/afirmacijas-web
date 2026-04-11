@@ -10,6 +10,7 @@ function clearCanvas(ctx: CanvasRenderingContext2D) {
 }
 
 function renderCanvas(ctx: CanvasRenderingContext2D, layerStore: LayerStore, debug: boolean) {
+    if (debug) fillCanvas(ctx);
     if (layerStore.image) renderImage(ctx, layerStore.image);
 
     if (layerStore.text_layers) {
@@ -20,7 +21,6 @@ function renderCanvas(ctx: CanvasRenderingContext2D, layerStore: LayerStore, deb
     }
 
     if (layerStore.border) renderBorder(ctx, layerStore.border);
-    if (debug) fillCanvas(ctx);
 }
 
 function fillCanvas(ctx: CanvasRenderingContext2D) {
@@ -31,7 +31,7 @@ function fillCanvas(ctx: CanvasRenderingContext2D) {
 
 function renderImage(ctx: CanvasRenderingContext2D, layer: ImageLayer) {
     if (!layer.img) return;
-    ctx.drawImage(layer.img, 0, 0);
+    ctx.drawImage(layer.img, 0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
 function renderText(ctx: CanvasRenderingContext2D, layer: TextLayer) {

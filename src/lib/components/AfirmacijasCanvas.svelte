@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { createCanvaConfig } from "$lib/canvas/canvas.svelte";
 	import { renderLayers } from "$lib/canvas/canvasRenderer";
-	import { createLayerStore } from "$lib/canvas/layers.svelte";
-    import { AspectRatio } from "$lib/canvas/canvas.svelte";
+    import { AspectRatio, getCanvaConfig } from "$lib/canvas/canvas.svelte";
+	import { getLayerStore } from "$lib/canvas/layers.svelte";
 
-    const layers = createLayerStore();
-    const config = createCanvaConfig();
+    const layers = getLayerStore();
+    const config = getCanvaConfig();
 
     let canvasEl = $state<HTMLCanvasElement | null>(null);
     
@@ -21,7 +20,8 @@
     
 
     $effect(() => {
-        console.log('config effect', { maxHeight, aspectRatio });
+        if (!config) return;
+
         config.maxHeight = maxHeight;
         config.aspectRatio = aspectRatio;
         

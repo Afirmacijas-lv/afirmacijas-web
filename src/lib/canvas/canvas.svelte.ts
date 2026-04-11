@@ -28,12 +28,12 @@ export class CanvaConfig {
     }
 };
 
-export function createCanvaConfig() {
+export function createCanvaConfig() : CanvaConfig {
     const config = new CanvaConfig();
     setContext(CANVA_CONFIG, config);
     return config;
 }
 
-export function getCanvaConfig() {
+export function getCanvaConfig() : CanvaConfig {
     return getContext(CANVA_CONFIG);
 }
