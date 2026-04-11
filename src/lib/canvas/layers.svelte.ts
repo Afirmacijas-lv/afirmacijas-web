@@ -48,7 +48,8 @@ export class LayerStore {
     setImage(src: string) {
         this.image = {
             type: LayerType.IMAGE,
-            src
+            src,
+            img: null
         };
     }
 
@@ -71,12 +72,12 @@ export class LayerStore {
 
 }
 
-export function createLayerStore() {
+export function createLayerStore(): LayerStore {
     const layerStore = new LayerStore();
     setContext(LAYER_KEY, layerStore);
     return layerStore;
 }
 
-export function useLayerStore() {
+export function getLayerStore() : LayerStore {
     return getContext(LAYER_KEY);
 }
