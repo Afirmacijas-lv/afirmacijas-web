@@ -1,2 +1,3 @@
 import AfirmacijasCanvas from '$lib/components/AfirmacijasCanvas.svelte';
-export { AfirmacijasCanvas };
+import { AspectRatio } from './canvas/canvas.svelte';
+export { AfirmacijasCanvas, AspectRatio };

@@ -1,16 +1,15 @@
-import { render } from "svelte/server";
 import type { BorderLayer, ImageLayer, Layer, TextLayer, LayerStore } from "./layers.svelte";
 
-function renderLayers(ctx: CanvasRenderingContext2D, layerStore: LayerStore) {
+export function renderLayers(ctx: CanvasRenderingContext2D, layerStore: LayerStore, debug: boolean) {
     clearCanvas(ctx);
-    renderCanvas(ctx, layerStore);
+    renderCanvas(ctx, layerStore, debug);
 }
 
 function clearCanvas(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
-function renderCanvas(ctx: CanvasRenderingContext2D, layerStore: LayerStore) {
+function renderCanvas(ctx: CanvasRenderingContext2D, layerStore: LayerStore, debug: boolean) {
     if (layerStore.image) renderImage(ctx, layerStore.image);
 
     if (layerStore.text_layers) {
@@ -21,14 +20,18 @@ function renderCanvas(ctx: CanvasRenderingContext2D, layerStore: LayerStore) {
     }
 
     if (layerStore.border) renderBorder(ctx, layerStore.border);
+    if (debug) fillCanvas(ctx);
+}
+
+function fillCanvas(ctx: CanvasRenderingContext2D) {
+    console.log('fillCanvas', { w: ctx.canvas.width, h: ctx.canvas.height });
+    ctx.fillStyle = "#eb5a62";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
 function renderImage(ctx: CanvasRenderingContext2D, layer: ImageLayer) {
-    const img = new Image();
-    img.src = layer.src;
-    img.onload = () => {
-        ctx.drawImage(img, 0, 0);
-    };
+    if (!layer.img) return;
+    ctx.drawImage(layer.img, 0, 0);
 }
 
 function renderText(ctx: CanvasRenderingContext2D, layer: TextLayer) {

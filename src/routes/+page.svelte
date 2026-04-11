@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { AfirmacijasCanvas } from '$lib';
+    import { AfirmacijasCanvas, AspectRatio } from '$lib';
 </script>
 
-<AfirmacijasCanvas maxHeight={500} />
+<AfirmacijasCanvas maxHeight={300} aspectRatio={AspectRatio._1_1} />

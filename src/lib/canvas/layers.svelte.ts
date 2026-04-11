@@ -1,8 +1,12 @@
+import { getContext, setContext } from "svelte";
+
 enum LayerType {
     IMAGE = 'image',
     TEXT = 'text',
     BORDER = 'border'
 };
+
+const LAYER_KEY = Symbol("layer");
 
 export type Position = {
     x: number;
@@ -12,6 +16,7 @@ export type Position = {
 export type ImageLayer = {
     type: LayerType.IMAGE;
     src: string;
+    img: HTMLImageElement | null;
 };
 
 export type BorderLayer = {
@@ -66,7 +71,12 @@ export class LayerStore {
 
 }
 
-export function useLayerStore() {
+export function createLayerStore() {
     const layerStore = new LayerStore();
+    setContext(LAYER_KEY, layerStore);
     return layerStore;
+}
+
+export function useLayerStore() {
+    return getContext(LAYER_KEY);
 }
